@@ -6,26 +6,26 @@
 </div>
   <button class=" addcontact btn btn-primary"><b>+</b> Add Contact</button>
 </div>
-<div class="nocontact" >
+<div class="nocontact" *ngIf="isHavenotContact" >
   <div class="contactlogo">
     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round mx-auto text-gray-400 mb-3"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
   </div>
   <p>No Contacts yet. Add one to get started!</p>
 </div>
 
-<div class="havecontact">
-  <div *ngFor="let contact of cellname" class="contactinfo">
+<div class="havecontact" *ngIf="isHaveContact">
+  <div *ngFor="let cellname of cellnames" class="contactinfo">
     <div class="round">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round text-gray-600"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>
     </div>
     <div class="cell_name">
       <p class="name">
         <b>
-        {{contact.name}}
+        {{cellname.name}}
       </b>
       </p>
       <p class="cell">
-        {{contact.cell}}
+        {{cellname.cell}}
       </p>
     </div>
     <div class="icons">
