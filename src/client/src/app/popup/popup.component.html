@@ -1,0 +1,30 @@
+<div class="main">
+<p class="heading">
+    {{dialogtitle}}
+</p >
+<hr class="line">
+<form>
+<div class="form-group">
+    <label id="labelname">Name</label>
+    <input type="text" class="form-control" id="Contactname" aria-describedby="emailHelp" required>
+    <div *ngIf="nameInvalid" class="text-danger">Name is mandatory</div>
+</div>
+
+<label id="labelphone" for="exampleInputPassword1">Phone Number</label>
+<div class="cellnumber">
+    <select class="dropdown small" aria-label="Default select example">
+            
+            <option value="1">US +1</option>
+            <option value="2">GB +44</option>
+            <option value="3">IN +91</option>
+            <option value="3">CA +91</option>
+            <option value="3">AU +61</option>
+    </select>
+  <input id="cell" type="numeric" class="form-control wide" >
+ </div>
+</form>
+<div class="buttons">
+    <button class="btn" (click)="onNoClick()">Cancel</button>
+    <button type="submit" (click)="onSubmit()" class="btn btn-primary">{{dialogtitle}}</button>
+</div>
+</div>

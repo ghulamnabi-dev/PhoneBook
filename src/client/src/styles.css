@@ -5,3 +5,11 @@ body {
   
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+::ng-deep .mat-dialog-container {
+  overflow: hidden !important; 
+  border-radius: 0px !important; /* Adjust the radius */
+ 
+  /* Remove the quotes */
+}

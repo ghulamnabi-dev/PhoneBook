@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewEncapsulation } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +15,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { PopupComponent } from './popup/popup.component';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,9 @@ import {
 
   standalone: true,
   templateUrl: './app.component.html',
-  styleUrls:[ './app.component.css']
+  styleUrls:[ './app.component.css'],
+  encapsulation: ViewEncapsulation.None // Add this line
+
 })
 export class AppComponent {
   title = 'Phonebook';
@@ -56,21 +59,31 @@ export class AppComponent {
 
   }
   addcontact(){
+    console.log("entered in add method");
+
     this.dialogtitle = "Add Contact";
+     this.openDialog();
   }
   editcontact(){
-    this.title = "Edit Contact"
-
+    this.dialogtitle = "Edit Contact";
+   
+    this.openDialog();
   }
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-  //     data: {dialogtitle: this.dialogtitle},
-  //   });
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     if (result !== undefined) {
-  //      console.log("no data");
-  //     }
-  //   });
-  // }
+  openDialog(): void {
+    console.log("entered in dialogue method");
+    const dialogRef = this.dialog.open(PopupComponent, {
+      width: '432px',
+      height: '270px', 
+      panelClass : 'mat-dialog-container',
+        data: {  dialogtitle: this.dialogtitle,} 
+
+        //
+         });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result !== undefined) {
+       console.log("no data");
+      }
+    });
+  }
 }

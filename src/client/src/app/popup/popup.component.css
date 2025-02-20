@@ -1,0 +1,50 @@
+.main{
+    margin-top: 10px;
+    
+    padding: 5px;
+    width: 415px;
+    height: 240px;
+    justify-content:space-around;
+    
+    
+}
+.heading{
+    margin: 0%;
+    font-size:24px;
+    font-weight:400;
+    margin-bottom: 10px;
+}
+.line{
+    margin:0%;
+}
+.buttons{
+    display: flex;
+  justify-content: flex-end; /* Push buttons to the right */
+  gap: 10px;  
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+#cell,#Contactname{
+    border: none;
+    
+}
+.cellnumber{
+    display:flex;
+    gap: 5px;
+    margin-top: 20px;
+}
+.wide {
+    flex-basis: 80%; /* Takes 70% of the space */
+  }
+  
+  .small {
+    flex-basis: 20%; /* Takes 30% of the space */
+  }
+.dropdown{
+    border:1px solid #b6bbc5;
+
+}
+#labelname,#labelphone{
+    margin-bottom: 2px;
+    padding-bottom:2px ;
+}
