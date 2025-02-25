@@ -8,6 +8,9 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { ChangeDetectorRef } from '@angular/core';
+import {  ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,21 +33,43 @@ export class PopupComponent {
   readonly dialogRef = inject(MatDialogRef<PopupComponent>);
   readonly data = inject(MAT_DIALOG_DATA);
   readonly dialogtitle = this.data.dialogtitle;
-  nameInvalid: any;
+  isSubmitted:boolean = false;
+  formdata:any = {
+    name:'',
+    countrycode:'1',
+    phone:''};
+      @ViewChild('cell') cell!: ElementRef;
+
+    constructor(private cdr: ChangeDetectorRef) {}
+
 
   ngAfterViewInit() {
-    const element = document.getElementById('Contactname') as HTMLInputElement;
-    if (element && !element.value) {
-      this.nameInvalid = true;
-    } else {
-      this.nameInvalid = false;
-    }
+    
+  }
+  formatphone(){
+    this.formdata.phone = this.formdata.phone.replace(/\D/g,"");
+    console.log(this.formdata.phone);
+   let cellphone = this.cell.nativeElement;
+   this.formdata.phone = this.formdata.phone.replace(
+    /^(\d{3})(\d{3})(\d{4})$/,
+    "($1) $2-$3"
+  );   cellphone.value =  this.formdata.phone;
+    this.cdr.detectChanges();
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-  onSubmit() {
+  onSubmit(form : any) {
+    this.isSubmitted = true;
+    
+    
+    if(form.invalid){
+      
+    }
+    else{
+      
+    }
 
   }
 

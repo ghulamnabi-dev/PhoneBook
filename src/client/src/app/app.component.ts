@@ -73,7 +73,7 @@ export class AppComponent {
     console.log("entered in dialogue method");
     const dialogRef = this.dialog.open(PopupComponent, {
       width: '432px',
-      height: '270px', 
+      height: '290px', 
       panelClass : 'mat-dialog-container',
         data: {  dialogtitle: this.dialogtitle,} 
 
