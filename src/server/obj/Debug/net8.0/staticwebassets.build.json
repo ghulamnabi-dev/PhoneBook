@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "ep+RbPrOM52xdg1RRuDruLLh0uVtdKInvXdWb4fTM3k=",
+  "Source": "PhoneBook",
+  "BasePath": "_content/PhoneBook",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
