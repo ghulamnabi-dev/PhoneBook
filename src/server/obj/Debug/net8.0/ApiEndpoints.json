@@ -1,15 +1,15 @@
 [
   {
-    "ContainingType": "PhoneBook.Controllers.WeatherForecastController",
-    "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "ContainingType": "PhoneBook.Controllers.PhoneBookController",
+    "Method": "GetContacts",
+    "RelativePath": "api/PhoneBook",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PhoneBook.WeatherForecast, PhoneBook, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "PhoneBook.Models.Contact",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -17,7 +17,80 @@
         ],
         "StatusCode": 200
       }
+    ]
+  },
+  {
+    "ContainingType": "PhoneBook.Controllers.PhoneBookController",
+    "Method": "AddContact",
+    "RelativePath": "api/PhoneBook",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contact",
+        "Type": "PhoneBook.Models.Contact",
+        "IsRequired": true
+      }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PhoneBook.Controllers.PhoneBookController",
+    "Method": "UpdateContact",
+    "RelativePath": "api/PhoneBook",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "contact",
+        "Type": "PhoneBook.Models.Contact",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PhoneBook.Controllers.PhoneBookController",
+    "Method": "GetContact",
+    "RelativePath": "api/PhoneBook/id",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PhoneBook.Models.Contact",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PhoneBook.Controllers.PhoneBookController",
+    "Method": "DeleteContact",
+    "RelativePath": "api/PhoneBook/id",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
