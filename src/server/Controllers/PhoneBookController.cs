@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PhoneBook.DBContext;
 using PhoneBook.Models;
 
@@ -15,15 +16,15 @@ namespace PhoneBook.Controllers
         
         
         [HttpGet]
-        public ActionResult<Contact> GetContacts()
+        public async Task<ActionResult<Contact>> GetContacts()
         {
-            List<Contact> Contacts = context.Contacts.ToList();
+            List<Contact> Contacts = await context.Contacts.ToListAsync();
             return Ok(Contacts); 
         }
         [HttpGet("id")]
-        public ActionResult<Contact> GetContact(int id)
+        public async Task<ActionResult<Contact>> GetContact(int id)
         {
-            Contact findcontact = context.Contacts.Find(id);
+            Contact findcontact =await context.Contacts.FindAsync(id);
             if(findcontact!=null)
             {
                 return Ok(findcontact);
@@ -34,21 +35,45 @@ namespace PhoneBook.Controllers
             }
         }
         [HttpPost]
-        public IActionResult AddContact(Contact contact)
+        public async Task<IActionResult> AddContact(Contact contact)
         {
-            
+             context.Contacts.Add(contact);
+            await context.SaveChangesAsync();
             return Ok();
         }
         [HttpPut]
-        public IActionResult UpdateContact(Contact contact)
+        public async Task<IActionResult> UpdateContact(Contact contact)
         {
-            return Ok();
+           Contact EditContact =await context.Contacts.FindAsync(contact.id);
+            if(contact!=null)
+            {
+                EditContact.Name = contact.Name;
+                EditContact.Phone = contact.Phone;
+                EditContact.Country_code = contact.Country_code;
+                await context.SaveChangesAsync();
+                return Ok(EditContact);
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
         [HttpDelete("id")]
-        public IActionResult DeleteContact(int id)
+        public async Task<IActionResult> DeleteContact(int id)
         {
-
-            return Ok();
+            Contact todelcontact = await context.Contacts.FindAsync(id);
+            if(todelcontact!=null)
+            {
+                context.Contacts.Remove(todelcontact);
+                await context.SaveChangesAsync();
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+            
         }
     }
 }
