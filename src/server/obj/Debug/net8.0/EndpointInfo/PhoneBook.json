@@ -92,7 +92,7 @@
         }
       }
     },
-    "/api/PhoneBook/id": {
+    "/api/PhoneBook/{id}": {
       "get": {
         "tags": [
           "PhoneBook"
@@ -100,7 +100,8 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -137,7 +138,8 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"

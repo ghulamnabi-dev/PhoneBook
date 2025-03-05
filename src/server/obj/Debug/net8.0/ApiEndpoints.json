@@ -54,7 +54,7 @@
   {
     "ContainingType": "PhoneBook.Controllers.PhoneBookController",
     "Method": "GetContact",
-    "RelativePath": "api/PhoneBook/id",
+    "RelativePath": "api/PhoneBook/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -62,7 +62,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -80,7 +80,7 @@
   {
     "ContainingType": "PhoneBook.Controllers.PhoneBookController",
     "Method": "DeleteContact",
-    "RelativePath": "api/PhoneBook/id",
+    "RelativePath": "api/PhoneBook/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -88,7 +88,7 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

@@ -1,5 +1,6 @@
 using PhoneBook.DBContext;
 using Microsoft.EntityFrameworkCore;
+using PhoneBook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PhoneBookContext>(
@@ -7,6 +8,7 @@ builder.Services.AddDbContext<PhoneBookContext>(
     
     );
 
+builder.Services.AddScoped<PhoneBookService>();
 // Add services to the container.
 
 builder.Services.AddControllers();

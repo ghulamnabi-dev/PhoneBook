@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PhoneBook.DBContext;
+using PhoneBook.Services;
 using PhoneBook.Models;
 
 namespace PhoneBook.Controllers
@@ -9,22 +9,22 @@ namespace PhoneBook.Controllers
     [ApiController]
     public class PhoneBookController : ControllerBase
     {
-        readonly PhoneBookContext context;
-       public PhoneBookController(PhoneBookContext _context) {
-            context = _context;
+        readonly PhoneBookService service;
+       public PhoneBookController(PhoneBookService _Service) {
+            service = _Service;
         }
         
         
         [HttpGet]
         public async Task<ActionResult<Contact>> GetContacts()
         {
-            List<Contact> Contacts = await context.Contacts.ToListAsync();
+            List<Contact> Contacts = await service.GetContacts();
             return Ok(Contacts); 
         }
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
         {
-            Contact findcontact =await context.Contacts.FindAsync(id);
+            Contact findcontact =await service.GetContact(id);
             if(findcontact!=null)
             {
                 return Ok(findcontact);
@@ -37,21 +37,23 @@ namespace PhoneBook.Controllers
         [HttpPost]
         public async Task<IActionResult> AddContact(Contact contact)
         {
-             context.Contacts.Add(contact);
-            await context.SaveChangesAsync();
-            return Ok();
+
+            if (await service.AddContact(contact) != null)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NoContent();
+            }
         }
         [HttpPut]
         public async Task<IActionResult> UpdateContact(Contact contact)
         {
-           Contact EditContact =await context.Contacts.FindAsync(contact.id);
-            if(contact!=null)
+           Contact EditContact =await service.UpdateContact(contact);
+            if(EditContact!=null)
             {
-                EditContact.Name = contact.Name;
-                EditContact.Phone = contact.Phone;
-                EditContact.Country_code = contact.Country_code;
-                await context.SaveChangesAsync();
-                return Ok(EditContact);
+               return Ok(EditContact);
             }
             else
             {
@@ -59,14 +61,12 @@ namespace PhoneBook.Controllers
             }
             
         }
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteContact(int id)
         {
-            Contact todelcontact = await context.Contacts.FindAsync(id);
-            if(todelcontact!=null)
+            
+            if (await service.DeleteContact(id))
             {
-                context.Contacts.Remove(todelcontact);
-                await context.SaveChangesAsync();
                 return Ok();
             }
             else
