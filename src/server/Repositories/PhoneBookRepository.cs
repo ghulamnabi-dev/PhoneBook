@@ -34,7 +34,7 @@ namespace PhoneBook.Repositories
         public async Task<Contact> AddContact(Contact contact)
         {
             context.Contacts.Add(contact);
-            await context.SaveChangesAsync();
+           
             return contact;
         }
 
@@ -46,7 +46,7 @@ namespace PhoneBook.Repositories
                 EditContact.Name = contact.Name;
                 EditContact.Phone = contact.Phone;
                 EditContact.Country_code = contact.Country_code;
-                await context.SaveChangesAsync();
+           
                 return EditContact;
             }
             else
@@ -62,7 +62,7 @@ namespace PhoneBook.Repositories
             if (todelcontact != null)
             {
                 context.Contacts.Remove(todelcontact);
-                await context.SaveChangesAsync();
+               
                 return true;
             }
             else
