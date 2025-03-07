@@ -21,14 +21,8 @@ namespace PhoneBook.Repositories
         public async Task<Contact> GetContact(int id)
         {
             Contact findcontact = await context.Contacts.FindAsync(id);
-            if (findcontact != null)
-            {
-                return findcontact;
-            }
-            else
-            {
-                return null;
-            }
+            return findcontact;
+                      
         }
 
         public async Task<Contact> AddContact(Contact contact)
@@ -38,38 +32,9 @@ namespace PhoneBook.Repositories
             return contact;
         }
 
-        public async Task<Contact> UpdateContact(Contact contact)
+        public async Task DeleteContact(Contact contact)
         {
-            Contact EditContact = await context.Contacts.FindAsync(contact.id);
-            if (EditContact != null)
-            {
-                EditContact.Name = contact.Name;
-                EditContact.Phone = contact.Phone;
-                EditContact.Country_code = contact.Country_code;
-           
-                return EditContact;
-            }
-            else
-            {
-                return null;
-            }
-
-        }
-
-        public async Task<bool> DeleteContact(int id)
-        {
-            Contact todelcontact = await context.Contacts.FindAsync(id);
-            if (todelcontact != null)
-            {
-                context.Contacts.Remove(todelcontact);
-               
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+                context.Contacts.Remove(contact);
         }
 
 

@@ -40,11 +40,11 @@ namespace PhoneBook.Controllers
 
             if (await service.AddContact(contact) != null)
             {
-                return Ok();
+                return CreatedAtAction(nameof(GetContact),contact);
             }
             else
             {
-                return NoContent();
+                return BadRequest();
             }
         }
         [HttpPut]
@@ -67,7 +67,7 @@ namespace PhoneBook.Controllers
             
             if (await service.DeleteContact(id))
             {
-                return Ok();
+                return NoContent();
             }
             else
             {

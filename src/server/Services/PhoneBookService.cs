@@ -1,5 +1,6 @@
 ﻿
 using PhoneBook.Models;
+using System.Runtime.CompilerServices;
 
 namespace PhoneBook.Services
 {
@@ -18,9 +19,9 @@ namespace PhoneBook.Services
         }
         
         public async Task<Contact> GetContact(int id)
-        {
-            return await unitofwork.phoneBookRepository.GetContact(id);
-
+        { var contact = await unitofwork.phoneBookRepository.GetContact(id);
+                     
+                return contact;
         }
         
         public async Task<Contact> AddContact(Contact contact)
@@ -34,15 +35,35 @@ namespace PhoneBook.Services
        
         public async Task<Contact> UpdateContact(Contact contact)
         {
-            this._contact=await unitofwork.phoneBookRepository.UpdateContact(contact);
-            await unitofwork.SaveChange();
-            return _contact;
+            Contact EditContact = await unitofwork.phoneBookRepository.GetContact(contact.id);
+           
+            if (EditContact != null)
+            {
+
+                EditContact = contact;
+                await unitofwork.SaveChange();
+                return EditContact;
+            }
+            else
+            {
+                return null;
+            }
+            
         }
        
         public async Task<bool> DeleteContact(int id)
         {
-             await unitofwork.phoneBookRepository.DeleteContact(id);
-            return await unitofwork.SaveChange();
+            Contact todelcontact = await unitofwork.phoneBookRepository.GetContact(id);
+            if (todelcontact != null)
+            {
+                await unitofwork.phoneBookRepository.DeleteContact(todelcontact);
+                return await unitofwork.SaveChange();
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     
 
