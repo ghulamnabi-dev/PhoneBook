@@ -6,26 +6,27 @@
  <form class="form" (submit)="onSubmit(form)" #form="ngForm">
     <div class="form-group">
       <label id="labelname">Name</label>
-      <input type="text" name="user_name" #name="ngModel" [(ngModel)]="formdata.name" class="form-control" id="Contactname" required>
+      <input type="text" name="name" #name="ngModel" [(ngModel)]="formdata.name" class="form-control" id="Contactname" required>
       <div *ngIf="(name.invalid && name.touched) || (name.invalid && isSubmitted)" class="text-danger">Name is mandatory</div>
     </div>
 
     <label id="labelphone" >Phone Number</label>
     <div class="cellnumber">
-      <select class="dropdown small" name="countrycode" [(ngModel)]="formdata.countrycode">
+      <select class="dropdown small" name="country_code" [(ngModel)]="formdata.country_code" >
+        <option value="92">PAK +92</option>
         <option value="1">US +1</option>
         <option value="44">GB +44</option>
-        <option value="91">IN +91</option>
+        <option value="91">IN +91</option>  
         <option value="+1">CA +1</option>
         <option value="61">AU +61</option>
       </select>
-      <input id="cell" type="text" #cell (input)="formatphone()" name="cellnumber" pattern=".{10,10}" maxlength="10" #phone="ngModel" [(ngModel)]="formdata.phone" class="form-control wide"required >
+      <input id="cell" type="text" #cell (input)="formatphone()" name="phone" pattern=".{14,14}" maxlength="14" #phone="ngModel" [(ngModel)]="formdata.phone" class="form-control wide"required >
     </div>
     <div *ngIf=" (phone.errors?.['required'] && phone.touched) || (phone.errors?.['required'] && isSubmitted)" class="text-danger">Phone is mandatory</div>
-    <div *ngIf="phone.dirty && phone.errors?.['pattern']"  class="text-danger">Phone number must be in format (XXX) XXX-XXXX</div>
+    <div *ngIf="phone.dirty && phone.errors?.['pattern'] && isSubmitted"  class="text-danger">Phone number must be in format (XXX) XXX-XXXX</div>
   <div class="buttonss">
-    <button class="btn" (click)="onNoClick()">Cancel</button>
-    <button type="submit"   class="btn btn-primary">{{dialogtitle}}</button> 
+    <button class="btn" (click)="Oncancel()">Cancel</button>
+    <button type="submit" class="btn btn-primary">{{dialogtitle}}</button> 
   </div>
 </form>
 </div>

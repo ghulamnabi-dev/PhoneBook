@@ -1,110 +1,73 @@
-.main{
-    width: 680px;
-    margin: auto;
+.register-container {
+    height: 100vh;
+    display: flex;
     justify-content: center;
-}
-.Phonebook{
-    padding: 16px;
-    margin: 10px;
-    display: flex;
-    justify-content: space-between;
-
-    
-}
-.addcontact{
-
-    background-color: #2563eb;
-    height: 40px;    
-    width: 150px;
-    padding-top: 0%;
-    padding-bottom: 0%;
-}
-
-.logo{
-    display: flex;
-}
-.heading{
-    margin-left: 10px;
-    font-weight: 750;
-}
-.nocontact{
-    
-    margin: 10px;
-    margin-left: 25px;
-    margin-right: 25px;
+    align-items: center;
+    background: #f8fafc;
+  }
+  
+  .register-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 420px;
     text-align: center;
-    background-color: white;
-    border-radius: 10px;
-    height: 200px;
-    padding: 16px;
-    padding-top: 50px;
+  }
+  
+  .register-card h2 {
+    margin-bottom: 0.5rem;
+    color: #1e3a8a;
+  }
+  
+  .register-card p {
+    margin-bottom: 1.5rem;
     color: #6b7280;
-
-}
-.havecontact{
-   
-    background-color: white;
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-top: 10px;
-    border-radius: 10px;
-    padding: 20px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    
-    
-
-}
-.round{
-    
-    border-radius: 50%;
-    background-color: #f3f4f6;
-   color: #6b7280;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    padding-top: 5px;
-    margin-top: 20px;
-    margin-left: 10px;
-}
-.contactinfo{
-    display: flex;
-   box-shadow: #6b7280;
-   margin-top: 10px;
-   margin-bottom: 10px;
-   border-radius: 10px;
- box-shadow: 0px 3px 12px -6.5px rgba(0, 0, 10, 0.29);}
-.contactinfo:hover{
-    box-shadow: 0px 2px 6px 0.5px rgba(0, 0, 10, 0.29);
-}
-.icons{
-    padding-top: 15px;
-    padding-left:55%;
-    
-}
-.cell_name{
-    padding-left: 20px;
-}
-.name{
-    margin-bottom: 0%;
-    margin-top: 10px;
-}
-.primary{
-    color: #2563eb;
+  }
+  
+  .register-card input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  .register-card input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+  
+  .register-card button {
+    width: 100%;
+    background-color: #3b82f6;
+    color: white;
     border: none;
-}
-.danger{
-    color: red;
-    border: none;
-}
-
-.primary:hover{
-    background-color: #2564eb2d;
-    
-    
-}
-
-.danger:hover{
-    background-color:rgba(255, 0, 0, 0.08);
-
-}
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .register-card button:hover {
+    background-color: #2563eb;
+  }
+  
+  .login-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .login-link a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  

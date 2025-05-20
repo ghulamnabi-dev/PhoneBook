@@ -2,7 +2,11 @@
 using PhoneBook.Repositories;
 namespace PhoneBook
 {
-    public class UnitOfWork
+    public interface IUnitOfWork
+    {
+        public Task<bool> SaveChange();
+    }
+    public class UnitOfWork:IUnitOfWork
     {
         public PhoneBookRepository phoneBookRepository;
         readonly PhoneBookContext context;

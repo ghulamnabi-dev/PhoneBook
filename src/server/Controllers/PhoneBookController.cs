@@ -19,7 +19,13 @@ namespace PhoneBook.Controllers
         public async Task<ActionResult<Contact>> GetContacts()
         {
             List<Contact> Contacts = await service.GetContacts();
-            return Ok(Contacts); 
+            if (Contacts!=null) { 
+            return Ok(Contacts);
+            }
+            else
+            {
+                return NoContent();
+            }
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
@@ -35,12 +41,12 @@ namespace PhoneBook.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> AddContact(Contact contact)
+        public async Task<IActionResult> AddContact([FromBody] Contact contact)
         {
 
             if (await service.AddContact(contact) != null)
             {
-                return CreatedAtAction(nameof(GetContact),contact);
+                return Ok(contact);
             }
             else
             {

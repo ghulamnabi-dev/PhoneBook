@@ -4,7 +4,7 @@ using PhoneBook.Models;
 
 namespace PhoneBook.Repositories
 {
-    public class PhoneBookRepository
+    public class PhoneBookRepository:IphonebookRepository
     {
         readonly PhoneBookContext context;
         public PhoneBookRepository(PhoneBookContext _context)

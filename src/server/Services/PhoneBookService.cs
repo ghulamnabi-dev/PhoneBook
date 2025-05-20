@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace PhoneBook.Services
 {
-    public class PhoneBookService
+    public class PhoneBookService:IphoneBookService
     {
         readonly UnitOfWork unitofwork;
         Contact _contact;
@@ -40,7 +40,9 @@ namespace PhoneBook.Services
             if (EditContact != null)
             {
 
-                EditContact = contact;
+                EditContact.Name = contact.Name;
+                EditContact.Phone = contact.Phone;
+                EditContact.Country_code = contact.Country_code;
                 await unitofwork.SaveChange();
                 return EditContact;
             }
