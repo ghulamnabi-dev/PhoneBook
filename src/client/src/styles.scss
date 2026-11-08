@@ -1,0 +1,169 @@
+@use '@angular/material' as mat;
+
+// ---------------------------------------------------------------------------
+// Theme — Material 3 system tokens, one accent (indigo), light + dark
+// ---------------------------------------------------------------------------
+html {
+  color-scheme: light;
+  @include mat.theme((
+    color: (primary: mat.$blue-palette, tertiary: mat.$violet-palette, theme-type: color-scheme),
+    typography: (plain-family: 'Inter, system-ui, sans-serif', brand-family: 'Inter, system-ui, sans-serif'),
+    density: -1,
+  ));
+}
+
+html {
+  // Accent + semantic colours
+  --accent: #4f46e5;
+  --accent-ink: #ffffff;
+  --accent-soft: #eef0fe;
+  --accent-strong: #3730a3;
+  --star: #d97706;
+  --negative: #b42318;
+  --negative-soft: #fdecea;
+  --positive: #067647;
+
+  --mat-sys-primary: var(--accent);
+  --mat-sys-on-primary: var(--accent-ink);
+  --mat-sys-primary-container: var(--accent-soft);
+  --mat-sys-on-primary-container: var(--accent-strong);
+  --mat-sys-secondary-container: var(--accent-soft);
+  --mat-sys-on-secondary-container: var(--accent-strong);
+  --mat-sys-surface: var(--surface);
+  --mat-sys-surface-container: var(--surface);
+  --mat-sys-surface-container-high: var(--surface);
+  --mat-sys-surface-container-low: var(--surface);
+
+  // Surfaces: flat and neutral
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f2f4f7;
+  --hover: #f4f5f8;
+  --line: #e5e7ec;
+  --line-strong: #d0d5dd;
+  --ink: #101828;
+  --ink-2: #475467;
+  --ink-3: #8790a0;
+
+  // Avatars: deterministic hue (set per element as --h), muted lightness
+  --avatar-s: 52%;
+  --avatar-bg-l: 92%;
+  --avatar-ink-l: 32%;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+
+  &.dark {
+    color-scheme: dark;
+    --accent: #a5b4fc;
+    --accent-ink: #1e1b4b;
+    --accent-soft: #23264a;
+    --accent-strong: #c7d2fe;
+    --star: #fbbf24;
+    --negative: #f1857a;
+    --negative-soft: #3a1b18;
+    --positive: #6fd3ad;
+    --bg: #0e1014;
+    --surface: #15181e;
+    --surface-2: #1c2028;
+    --hover: #1a1e25;
+    --line: #252a33;
+    --line-strong: #343a46;
+    --ink: #e7e9ee;
+    --ink-2: #aeb5c2;
+    --ink-3: #7b8494;
+    --avatar-s: 30%;
+    --avatar-bg-l: 24%;
+    --avatar-ink-l: 82%;
+  }
+}
+
+// Base --------------------------------------------------------------------
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif; font-size: 13.5px; line-height: 1.5;
+  background: var(--bg); color: var(--ink);
+  -webkit-font-smoothing: antialiased; font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--accent) 28%, transparent); }
+
+// Material tweaks — tighter, flatter
+.mat-mdc-button-base {
+  --mdc-text-button-container-shape: var(--radius-s); --mdc-filled-button-container-shape: var(--radius-s);
+  --mdc-outlined-button-container-shape: var(--radius-s); --mdc-outlined-button-outline-color: var(--line-strong);
+  --mdc-outlined-button-label-text-color: var(--ink); --mdc-text-button-label-text-weight: 500;
+  font-weight: 500; letter-spacing: 0;
+}
+.mat-mdc-form-field {
+  --mat-form-field-container-text-size: 13.5px; --mdc-outlined-text-field-container-shape: var(--radius-s);
+  --mdc-outlined-text-field-outline-color: var(--line-strong); --mdc-outlined-text-field-hover-outline-color: var(--ink-3);
+  --mat-form-field-subscript-text-size: 12px;
+  --mdc-outlined-text-field-label-text-size: 13.5px; --mat-select-trigger-text-size: 13.5px;
+}
+.mat-mdc-dialog-container { --mdc-dialog-container-shape: var(--radius-l); --mdc-dialog-subhead-size: 17px; --mdc-dialog-subhead-weight: 600; --mdc-dialog-container-color: var(--surface); --mdc-dialog-supporting-text-color: var(--ink-2); --mdc-dialog-subhead-color: var(--ink); }
+.mat-mdc-dialog-surface { border: 1px solid var(--line); }
+.cdk-overlay-dark-backdrop { background: rgba(16, 24, 40, .42); }
+.mat-mdc-menu-panel { --mat-menu-container-shape: var(--radius-m); --mat-menu-container-color: var(--surface); --mat-menu-item-label-text-size: 13.5px; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(16, 24, 40, .08) !important; }
+.mat-mdc-menu-item { min-height: 38px; &.danger { color: var(--negative); .mat-icon { color: inherit; } } }
+.mat-mdc-tooltip { --mdc-plain-tooltip-container-shape: var(--radius-s); --mdc-plain-tooltip-supporting-text-size: 12px; }
+.mat-mdc-select-panel { --mat-select-panel-background-color: var(--surface); border: 1px solid var(--line); }
+.mat-mdc-option { --mat-option-label-text-size: 13.5px; min-height: 38px; }
+.mat-mdc-chip { --mdc-chip-container-shape-radius: 999px; --mdc-chip-label-text-size: 12.5px; --mdc-chip-outline-color: var(--line-strong); }
+.mat-button-toggle-group.compact {
+  --mat-standard-button-toggle-height: 28px; --mat-standard-button-toggle-shape: var(--radius-s);
+  --mat-standard-button-toggle-divider-color: var(--line-strong); --mat-standard-button-toggle-label-text-size: 12.5px;
+  --mat-standard-button-toggle-selected-state-background-color: var(--surface-2); --mat-standard-button-toggle-selected-state-text-color: var(--ink);
+  --mat-standard-button-toggle-text-color: var(--ink-3); --mat-standard-button-toggle-background-color: var(--surface);
+  border-color: var(--line-strong);
+  .mat-button-toggle-label-content { padding: 0 10px; font-weight: 500; }
+}
+.mat-drawer-container { --mat-sidenav-content-background-color: var(--bg); --mat-sidenav-container-background-color: var(--surface); --mat-sidenav-container-shape: 0; }
+.mat-drawer { box-shadow: none !important; }
+
+// Small icon buttons used in dense rows
+.icon-btn-s.mat-mdc-icon-button {
+  --mdc-icon-button-state-layer-size: 30px; --mdc-icon-button-icon-size: 18px; width: 30px; height: 30px; padding: 6px;
+  color: var(--ink-3);
+  mat-icon { font-size: 18px; width: 18px; height: 18px; }
+  &:hover { color: var(--ink); }
+}
+
+// Shared primitives --------------------------------------------------------
+.avatar {
+  --size: 32px;
+  display: inline-grid; place-items: center; flex: none; width: var(--size); height: var(--size); border-radius: 50%;
+  background: hsl(var(--h, 230) var(--avatar-s) var(--avatar-bg-l)); color: hsl(var(--h, 230) 45% var(--avatar-ink-l));
+  font-size: calc(var(--size) * .38); font-weight: 600; letter-spacing: .01em; user-select: none;
+}
+.tag {
+  display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11.5px; font-weight: 500;
+  background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap;
+}
+.kbd {
+  display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 4px;
+  border: 1px solid var(--line-strong); border-bottom-width: 2px; background: var(--surface);
+  font: 500 11px/1 'Inter', system-ui, sans-serif; color: var(--ink-2);
+}
+.muted { color: var(--ink-3); }
+.num { font-variant-numeric: tabular-nums; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+
+// Snackbars
+.snack-success { --mdc-snackbar-container-color: #101828; --mdc-snackbar-supporting-text-color: #fff; }
+.snack-error { --mdc-snackbar-container-color: #b42318; --mdc-snackbar-supporting-text-color: #fff; --mat-snack-bar-button-color: #fff; }
+
+// Dialog forms
+.dialog-form { display: grid; gap: 2px; padding-top: 6px; }
+.dialog-form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 600px) { .dialog-form .row { grid-template-columns: 1fr; } }
+.dialog-form mat-form-field { width: 100%; }
+.section-label { margin: 10px 0 8px; font-size: 12px; font-weight: 600; color: var(--ink-2); letter-spacing: .01em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

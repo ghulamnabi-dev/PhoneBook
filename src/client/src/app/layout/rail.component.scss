@@ -1,0 +1,55 @@
+:host { display: flex; flex-direction: column; height: 100%; background: var(--surface); }
+
+.brand {
+  display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 18px; flex: none;
+  .mark { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px; background: var(--accent); color: var(--accent-ink);
+    mat-icon { font-size: 16px; width: 16px; height: 16px; } }
+  .brand-name { font-weight: 600; font-size: 14px; letter-spacing: -0.01em; }
+}
+
+.nav {
+  display: grid; gap: 1px; padding: 4px 10px;
+  a {
+    position: relative; display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 8px 0 10px; border-radius: 7px;
+    color: var(--ink-2); font-size: 13.5px; font-weight: 500; text-decoration: none;
+    > mat-icon { flex: none; font-size: 18px; width: 18px; height: 18px; color: var(--ink-3); }
+    .label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .count { font-size: 12px; color: var(--ink-3); font-weight: 500; }
+    &:hover { background: var(--hover); color: var(--ink); text-decoration: none; }
+    &.active { background: var(--accent-soft); color: var(--accent-strong); > mat-icon, .count { color: inherit; } }
+  }
+}
+
+.groups {
+  flex: 1; overflow-y: auto; align-content: start; padding-bottom: 12px;
+  a .more { display: none; margin-right: -4px; }
+  a:hover, a:focus-within { .more { display: inline-flex; } .count { display: none; } }
+  @media (hover: none) { a .more, a:hover .more { display: inline-flex; } a .count, a:hover .count { display: inline; margin-right: 2px; } }
+}
+.none { margin: 4px 10px; font-size: 12.5px; color: var(--ink-3); }
+
+.section-head {
+  display: flex; align-items: center; justify-content: space-between; margin: 14px 10px 2px 20px;
+  font-size: 11.5px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em;
+}
+
+.rename { display: grid; gap: 2px; padding: 2px 0; }
+.rename-input {
+  height: 32px; width: 100%; padding: 0 10px; border: 1px solid var(--accent); border-radius: 7px; outline: none;
+  background: var(--surface); color: var(--ink); font: inherit; font-weight: 500;
+  &.invalid { border-color: var(--negative); }
+}
+.rename-error { padding: 0 4px; font-size: 11.5px; color: var(--negative); }
+
+.foot {
+  display: flex; align-items: center; gap: 4px; padding: 8px 8px 8px 10px; border-top: 1px solid var(--line); flex: none;
+}
+.account {
+  display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; padding: 6px; border: 0; border-radius: 8px;
+  background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  &:hover { background: var(--hover); }
+}
+.account-text { display: grid; min-width: 0; line-height: 1.25; }
+.account-name { font-size: 13px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-email { font-size: 11.5px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.menu-who { display: grid; padding: 8px 16px 10px; line-height: 1.3; min-width: 200px; }

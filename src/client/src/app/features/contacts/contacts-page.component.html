@@ -1,0 +1,90 @@
+<div class="page" [class.has-selection]="selectedId() !== null">
+  <section class="list-col" aria-label="Contacts">
+    <header class="head">
+      @if (layout.compact()) {
+        <button mat-icon-button class="icon-btn-s menu" (click)="layout.navOpen.set(true)" aria-label="Open navigation"><mat-icon>menu</mat-icon></button>
+      }
+      <h1 class="title">{{ title() }}</h1>
+      <span class="grow"></span>
+      <button mat-flat-button class="new" (click)="newContact()" matTooltip="New contact (N)">
+        <mat-icon>add</mat-icon>New
+      </button>
+      <button mat-icon-button class="icon-btn-s" [matMenuTriggerFor]="more" aria-label="Import and export"><mat-icon>more_vert</mat-icon></button>
+      <mat-menu #more="matMenu" xPosition="before">
+        <button mat-menu-item (click)="openImport()"><mat-icon>upload_file</mat-icon>Import vCard…</button>
+        <button mat-menu-item (click)="exportAll()" [disabled]="exporting()">
+          <mat-icon>download</mat-icon>{{ query().scope === 'group' ? 'Export this group (.vcf)' : 'Export all (.vcf)' }}
+        </button>
+      </mat-menu>
+    </header>
+
+    <div class="tools">
+      <label class="search" [class.filled]="search.value">
+        <mat-icon aria-hidden="true">search</mat-icon>
+        <input #searchInput type="search" [formControl]="search" placeholder="Search names, companies, numbers…"
+               aria-label="Search contacts" autocomplete="off" spellcheck="false"
+               (keydown.enter)="searchNow()" (keydown.escape)="clearSearch($event)" />
+        @if (search.value) {
+          <button type="button" class="clear" (click)="clearSearch()" aria-label="Clear search"><mat-icon>close</mat-icon></button>
+        } @else {
+          <span class="kbd" aria-hidden="true">/</span>
+        }
+      </label>
+      <div class="meta">
+        <span class="summary num" aria-live="polite">{{ summary() }}</span>
+        <mat-button-toggle-group class="compact" hideSingleSelectionIndicator [value]="query().sort" (change)="store.setSort($event.value)" aria-label="Sort by">
+          <mat-button-toggle value="name">Name</mat-button-toggle>
+          <mat-button-toggle value="recent">Recent</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+
+    <div class="list-scroll" #scroller>
+      @if (store.loading() && !store.items().length) {
+        <div class="skeleton" aria-hidden="true">
+          @for (i of skeletonRows; track i) { <div class="sk-row"><span class="sk-avatar"></span><span class="sk-lines"><span [style.width.%]="44 + (i * 17) % 40"></span><span [style.width.%]="30 + (i * 11) % 25"></span></span></div> }
+        </div>
+      } @else if (store.failed() && !store.items().length) {
+        <app-empty-state icon="cloud_off" title="Couldn't load contacts" message="Check your connection and try again.">
+          <button mat-stroked-button (click)="store.reload()">Retry</button>
+        </app-empty-state>
+      } @else if (!store.items().length) {
+        @switch (emptyKind()) {
+          @case ('search') {
+            <app-empty-state icon="search_off" [title]="'No matches for “' + query().q + '”'" message="Search looks at names, company, e-mail and any part of a phone number." />
+          }
+          @case ('favourites') {
+            <app-empty-state icon="star_outline" title="No favourites yet" message="Star the people you call most and they'll be pinned here." />
+          }
+          @case ('group') {
+            <app-empty-state icon="label" title="Nobody in this group" message="Edit a contact and pick this group to add them." />
+          }
+          @default {
+            <app-empty-state icon="person_add" title="Your address book is empty" message="Add someone, or import the .vcf file your phone or Google Contacts exports.">
+              <div class="empty-actions">
+                <button mat-flat-button (click)="newContact()">New contact</button>
+                <button mat-stroked-button (click)="openImport()">Import .vcf</button>
+              </div>
+            </app-empty-state>
+          }
+        }
+      } @else {
+        <app-contact-list
+          [class.dim]="store.loading()"
+          [sections]="store.sections()"
+          [selectedId]="selectedId()"
+          [baseUrl]="store.baseUrl()"
+          [hasMore]="store.hasMore()"
+          [loadingMore]="store.loadingMore()"
+          [loaded]="store.items().length"
+          [total]="store.total()"
+          (toggleFavourite)="store.toggleFavourite($event)"
+          (loadMore)="store.loadMore()" />
+      }
+    </div>
+  </section>
+
+  <section class="detail-col" aria-label="Contact details">
+    <router-outlet />
+  </section>
+</div>

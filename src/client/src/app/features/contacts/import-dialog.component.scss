@@ -1,0 +1,32 @@
+.body { display: grid; gap: 12px; }
+.lead { margin: 0; color: var(--ink-2); }
+.drop {
+  display: grid; justify-items: center; gap: 2px; padding: 26px 16px; border: 1.5px dashed var(--line-strong); border-radius: var(--radius-m);
+  background: var(--surface-2); text-align: center; cursor: pointer; transition: border-color .12s, background .12s;
+  &:hover, &:focus-within, &.dragging { border-color: var(--accent); background: var(--accent-soft); }
+  &:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  &.has-file { border-style: solid; }
+  .file-icon { font-size: 26px; width: 26px; height: 26px; color: var(--ink-3); margin-bottom: 6px; }
+  .file-name { font-weight: 600; color: var(--ink); word-break: break-all; }
+  .file-meta { font-size: 12.5px; color: var(--ink-3); }
+  .change { color: var(--accent); font-weight: 500; }
+}
+.file-error { margin: 0; font-size: 12.5px; color: var(--negative); }
+.progress { border-radius: 2px; }
+
+.outcome {
+  display: flex; gap: 12px; align-items: flex-start;
+  strong { display: block; font-size: 14px; color: var(--ink); }
+  p { margin: 2px 0 0; color: var(--ink-2); }
+  .badge { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%;
+    mat-icon { font-size: 17px; width: 17px; height: 17px; } }
+  &.ok .badge { background: color-mix(in srgb, var(--positive) 14%, transparent); color: var(--positive); }
+  &.bad .badge { background: var(--negative-soft); color: var(--negative); }
+}
+.problems {
+  margin: 0; padding: 8px 12px 8px 34px; max-height: 220px; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--radius-m);
+  background: var(--surface-2); font-size: 12.5px; line-height: 1.45; color: var(--ink);
+  li { padding: 5px 0; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; &:last-child { border-bottom: 0; } }
+  li::marker { color: var(--ink-3); }
+  &:focus-visible { outline-offset: 0; }
+}

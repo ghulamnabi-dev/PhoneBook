@@ -1,0 +1,90 @@
+<header class="bar">
+  @if (layout.handset()) {
+    <button mat-icon-button class="icon-btn-s back" (click)="back()" aria-label="Back to contacts"><mat-icon>arrow_back</mat-icon></button>
+  }
+  <span class="grow"></span>
+  @if (contact(); as c) {
+    <button mat-stroked-button class="act" (click)="edit(c)"><mat-icon>edit</mat-icon>Edit</button>
+    <button mat-stroked-button class="act" (click)="exportVcf(c)" [disabled]="exporting()"><mat-icon>download</mat-icon><span class="hide-s">Export </span>.vcf</button>
+    <button mat-icon-button class="icon-btn-s danger" (click)="remove(c)" matTooltip="Delete contact" aria-label="Delete contact"><mat-icon>delete_outline</mat-icon></button>
+  }
+</header>
+
+@if (store.detailMissing()) {
+  <app-empty-state icon="person_off" title="Contact not found" message="It may have been deleted, or the link is wrong.">
+    <button mat-stroked-button (click)="back()">Back to contacts</button>
+  </app-empty-state>
+} @else {
+@if (heading(); as h) {
+  <article class="detail" [attr.aria-busy]="!contact()">
+    <div class="hero">
+      <app-avatar [name]="h.displayName" [size]="72" />
+      <div class="who">
+        <h1>{{ h.displayName }}</h1>
+        @if (h.company) { <p class="company">{{ h.company }}</p> }
+      </div>
+      <button mat-icon-button class="star" [class.on]="h.isFavourite" (click)="store.toggleFavourite(h.id)" [attr.aria-pressed]="h.isFavourite"
+              [matTooltip]="h.isFavourite ? 'Remove from favourites' : 'Add to favourites'" [attr.aria-label]="h.isFavourite ? 'Remove from favourites' : 'Add to favourites'">
+        <mat-icon>{{ h.isFavourite ? 'star' : 'star_outline' }}</mat-icon>
+      </button>
+    </div>
+
+    @if (contact(); as c) {
+      <dl class="fields">
+        <div class="field">
+          <dt>{{ c.phones.length === 1 ? 'Phone' : 'Phones' }}</dt>
+          <dd>
+            <ul class="phones" role="list">
+              @for (p of c.phones; track p.id) {
+                <li>
+                  <a class="value num" [href]="'tel:' + dialable(p.number)">{{ p.number }}</a>
+                  <span class="tag">{{ p.label }}</span>
+                  <button mat-icon-button class="icon-btn-s copy" (click)="copy(p.number)" matTooltip="Copy" [attr.aria-label]="'Copy ' + p.number"><mat-icon>content_copy</mat-icon></button>
+                </li>
+              }
+            </ul>
+          </dd>
+        </div>
+
+        @if (c.email) {
+          <div class="field">
+            <dt>E-mail</dt>
+            <dd class="line">
+              <a class="value" [href]="'mailto:' + c.email">{{ c.email }}</a>
+              <button mat-icon-button class="icon-btn-s copy" (click)="copy(c.email)" matTooltip="Copy" aria-label="Copy e-mail"><mat-icon>content_copy</mat-icon></button>
+            </dd>
+          </div>
+        }
+
+        <div class="field">
+          <dt>Groups</dt>
+          <dd>
+            @if (c.groups.length) {
+              <span class="chips">
+                @for (g of c.groups; track g.id) { <a class="chip" [routerLink]="['/app/groups', g.id]"><mat-icon>label</mat-icon>{{ g.name }}</a> }
+              </span>
+            } @else {
+              <span class="muted">Not in any group</span>
+            }
+          </dd>
+        </div>
+
+        @if (c.notes) {
+          <div class="field">
+            <dt>Notes</dt>
+            <dd class="notes">{{ c.notes }}</dd>
+          </div>
+        }
+      </dl>
+
+      <footer class="foot">
+        <span [title]="c.updatedAt">Updated {{ c.updatedAt | relativeTime }}</span>
+        <span aria-hidden="true">·</span>
+        <span [title]="c.createdAt">Added {{ c.createdAt | date: 'd MMM y' }}</span>
+      </footer>
+    } @else {
+      <div class="skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
+    }
+  </article>
+}
+}

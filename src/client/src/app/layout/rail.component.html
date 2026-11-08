@@ -1,0 +1,74 @@
+<div class="brand">
+  <span class="mark"><mat-icon>contacts</mat-icon></span>
+  <span class="brand-name">PhoneBook</span>
+</div>
+
+<nav class="nav" aria-label="Address book">
+  <a routerLink="/app/contacts" routerLinkActive="active" (click)="navigated.emit()">
+    <mat-icon>person</mat-icon><span class="label">All contacts</span>
+    <span class="count num">{{ totals().all }}</span>
+  </a>
+  <a routerLink="/app/favourites" routerLinkActive="active" (click)="navigated.emit()">
+    <mat-icon>star</mat-icon><span class="label">Favourites</span>
+    <span class="count num">{{ totals().favourites }}</span>
+  </a>
+</nav>
+
+<div class="section-head">
+  <span id="groups-heading">Groups</span>
+  <button mat-icon-button class="icon-btn-s" (click)="addGroup()" matTooltip="New group" aria-label="New group">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<nav class="nav groups" aria-labelledby="groups-heading">
+  @for (group of groups(); track group.id) {
+    @if (editingId() === group.id) {
+      <div class="rename">
+        <input #renameInput class="rename-input" [formControl]="renameControl" maxlength="60" aria-label="Group name"
+               [class.invalid]="renameError()" (keydown.enter)="commitRename(group)" (keydown.escape)="cancelRename()" (blur)="commitRename(group)" />
+        @if (renameError()) { <span class="rename-error" role="alert">{{ renameError() }}</span> }
+      </div>
+    } @else {
+      <a [routerLink]="['/app/groups', group.id]" routerLinkActive="active" (click)="navigated.emit()">
+        <mat-icon>label</mat-icon><span class="label">{{ group.name }}</span>
+        <span class="count num">{{ group.contactCount }}</span>
+        <button mat-icon-button class="icon-btn-s more" [matMenuTriggerFor]="groupMenu" [matMenuTriggerData]="{ group }"
+                (click)="$event.preventDefault(); $event.stopPropagation()" [attr.aria-label]="'Options for ' + group.name">
+          <mat-icon>more_horiz</mat-icon>
+        </button>
+      </a>
+    }
+  } @empty {
+    @if (loaded()) { <p class="none">No groups yet. Use + to add one.</p> }
+  }
+</nav>
+
+<mat-menu #groupMenu="matMenu">
+  <ng-template matMenuContent let-group="group">
+    <button mat-menu-item (click)="startRename(group)"><mat-icon>edit</mat-icon>Rename</button>
+    <button mat-menu-item class="danger" (click)="deleteGroup(group)"><mat-icon>delete</mat-icon>Delete group</button>
+  </ng-template>
+</mat-menu>
+
+<div class="foot">
+  <button class="account" [matMenuTriggerFor]="userMenu" aria-label="Account menu">
+    <app-avatar [name]="userName()" [size]="28" />
+    <span class="account-text">
+      <span class="account-name">{{ userName() }}</span>
+      <span class="account-email">{{ userEmail() ?? 'Signed in' }}</span>
+    </span>
+  </button>
+  <button mat-icon-button class="icon-btn-s" (click)="theme.toggle()" [matTooltip]="theme.dark() ? 'Light theme' : 'Dark theme'"
+          [attr.aria-label]="theme.dark() ? 'Switch to light theme' : 'Switch to dark theme'">
+    <mat-icon>{{ theme.dark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+  <mat-menu #userMenu="matMenu" yPosition="above">
+    <div class="menu-who" (click)="$event.stopPropagation()">
+      <span class="account-name">{{ userName() }}</span>
+      <span class="account-email">{{ userEmail() }}</span>
+    </div>
+    <mat-divider />
+    <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon>Sign out</button>
+  </mat-menu>
+</div>

@@ -1,0 +1,26 @@
+# One-command local stack: API (SQLite on a volume) + web client.
+#   cp .env.example .env   (set a 32+ char JWT_SECRET)
+#   docker compose up --build
+# Web:  http://localhost:4300     API: http://localhost:5180  (/health, /api/...)
+services:
+  api:
+    build:
+      context: ./src/server
+    environment:
+      Jwt__Secret: ${JWT_SECRET:?set JWT_SECRET in .env}
+      Cors__AllowedOrigins__0: http://localhost:4300
+    ports:
+      - "5180:8080"
+    volumes:
+      - phonebook-data:/app/data
+
+  web:
+    build:
+      context: ./src/client
+    depends_on:
+      - api
+    ports:
+      - "4300:80"
+
+volumes:
+  phonebook-data:

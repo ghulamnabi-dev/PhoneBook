@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>Import contacts</h2>
+<mat-dialog-content class="body">
+  @switch (phase()) {
+    @case ('done') {
+      <div class="outcome ok" role="status">
+        <span class="badge"><mat-icon>check</mat-icon></span>
+        <div>
+          <strong>{{ summary(result()!.imported, result()!.skipped) }}</strong>
+          <p>From {{ file()?.name }}. New contacts are in “All contacts”.</p>
+        </div>
+      </div>
+    }
+    @case ('failed') {
+      <div class="outcome bad" role="alert">
+        <span class="badge"><mat-icon>priority_high</mat-icon></span>
+        <div>
+          <strong>Nothing was imported.</strong>
+          <p>
+            @if (failure()!.messages.length) {
+              {{ failure()!.messages.length }} {{ failure()!.messages.length === 1 ? 'problem' : 'problems' }} in {{ file()?.name }}.
+              Imports are all-or-nothing — fix these cards and try again.
+            } @else {
+              {{ failure()!.title }}
+            }
+          </p>
+        </div>
+      </div>
+      @if (failure()!.messages.length) {
+        <ol class="problems" tabindex="0" aria-label="Problems found in the file">
+          @for (m of failure()!.messages; track $index) { <li>{{ m }}</li> }
+        </ol>
+      }
+    }
+    @default {
+      <p class="lead">Upload a vCard (.vcf) exported from your phone, Google Contacts or Outlook. Cards without a name or number are skipped.</p>
+      <label class="drop" [class.dragging]="dragging()" [class.has-file]="file()"
+             (dragover)="onDragOver($event)" (dragleave)="dragging.set(false)" (drop)="onDrop($event)">
+        <input type="file" accept=".vcf,.vcard,text/vcard,text/x-vcard" (change)="onPicked($event)" class="sr-only" [disabled]="phase() === 'uploading'" />
+        @if (file(); as f) {
+          <mat-icon class="file-icon">description</mat-icon>
+          <span class="file-name">{{ f.name }}</span>
+          <span class="file-meta num">{{ size(f.size) }} · <span class="change">Choose another</span></span>
+        } @else {
+          <mat-icon class="file-icon">upload_file</mat-icon>
+          <span class="file-name">Drop a .vcf file here</span>
+          <span class="file-meta">or <span class="change">browse</span> — up to 5 MB</span>
+        }
+      </label>
+      @if (fileError()) { <p class="file-error" role="alert">{{ fileError() }}</p> }
+      @if (phase() === 'uploading') { <mat-progress-bar mode="indeterminate" class="progress" /> }
+    }
+  }
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  @switch (phase()) {
+    @case ('done') { <button mat-flat-button (click)="close()">Done</button> }
+    @case ('failed') {
+      <button mat-button (click)="close()">Close</button>
+      <button mat-flat-button (click)="retry()">Choose another file</button>
+    }
+    @default {
+      <button mat-button (click)="close()">Cancel</button>
+      <button mat-flat-button (click)="upload()" [disabled]="!file() || phase() === 'uploading'">
+        {{ phase() === 'uploading' ? 'Importing…' : 'Import' }}
+      </button>
+    }
+  }
+</mat-dialog-actions>

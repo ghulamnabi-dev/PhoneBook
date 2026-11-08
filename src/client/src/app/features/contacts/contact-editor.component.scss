@@ -1,0 +1,16 @@
+.editor { max-height: min(68vh, 640px); }
+.phones { display: grid; gap: 8px; margin-bottom: 6px; }
+.phone { display: grid; grid-template-columns: 112px minmax(0, 1fr) 30px; gap: 8px; align-items: start;
+  .remove { margin-top: 9px; }
+  @media (max-width: 420px) { grid-template-columns: 96px minmax(0, 1fr) 30px; }
+}
+.phone mat-form-field { width: 100%; }
+.add-phone { justify-self: start; margin-left: -8px; mat-icon { font-size: 18px; width: 18px; height: 18px; } }
+.array-error { margin: 0; font-size: 12px; color: var(--mat-sys-error); }
+.group-chips { margin-bottom: 14px; }
+.none { margin: 0 0 14px; font-size: 12.5px; }
+.notes { margin-top: 4px; }
+.actions { gap: 4px; padding: 10px 24px 18px; border-top: 1px solid var(--line); flex-wrap: wrap;
+  .grow { flex: 1; }
+  .fav { margin-right: 8px; }
+}

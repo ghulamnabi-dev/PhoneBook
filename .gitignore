@@ -1,0 +1,39 @@
+# --- .NET (src/server, src/server.Tests) ---
+bin/
+obj/
+out/
+publish/
+TestResults/
+*.trx
+.vs/
+*.user
+*.suo
+*.db
+*.db-shm
+*.db-wal
+
+# --- Node / Angular (src/client) ---
+node_modules/
+src/client/dist/
+src/client/.angular/
+src/client/out-tsc/
+npm-debug.log*
+yarn-error.log
+
+# --- IDE / OS ---
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# --- Secrets & local config ---
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+secrets.json
