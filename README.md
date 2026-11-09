@@ -146,7 +146,7 @@ Environment variables use `__` as the separator (`Jwt__Secret`, `Cors__AllowedOr
 ## Tests
 
 ```bash
-dotnet test src/PhoneBook.sln        # 35 tests: 8 vCard unit, 5 Unit-of-Work unit, 22 integration
+dotnet test src/PhoneBook.sln        # 36 tests: 8 vCard unit, 5 Unit-of-Work unit, 23 integration
 cd src/client && npm test            # Karma/Jasmine, headless Chrome
 ```
 
