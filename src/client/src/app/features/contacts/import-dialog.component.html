@@ -39,11 +39,11 @@
         @if (file(); as f) {
           <mat-icon class="file-icon">description</mat-icon>
           <span class="file-name">{{ f.name }}</span>
-          <span class="file-meta num">{{ size(f.size) }} · <span class="change">Choose another</span></span>
+          <span class="file-meta num">{{ size(f.size) }}. <span class="change">Choose another file</span></span>
         } @else {
           <mat-icon class="file-icon">upload_file</mat-icon>
           <span class="file-name">Drop a .vcf file here</span>
-          <span class="file-meta">or <span class="change">browse</span> — up to 5 MB</span>
+          <span class="file-meta">or <span class="change">browse</span> for one up to 5 MB</span>
         }
       </label>
       @if (fileError()) { <p class="file-error" role="alert">{{ fileError() }}</p> }

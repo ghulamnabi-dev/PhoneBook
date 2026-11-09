@@ -36,8 +36,9 @@ export function importFailure(err: unknown): ImportFailure | null {
   return { title: generic ? DEFAULT_TITLE : title, messages };
 }
 
-/** "12 contacts imported · 2 skipped" */
+/** "12 contacts imported; 2 skipped because they had no name or number." */
 export function importSummary(imported: number, skipped: number): string {
   const head = imported === 0 ? 'No contacts imported' : `${imported} contact${imported === 1 ? '' : 's'} imported`;
-  return skipped > 0 ? `${head} · ${skipped} skipped (no name or number)` : head;
+  if (skipped === 0) return head;
+  return `${head}; ${skipped} skipped because ${skipped === 1 ? 'it had' : 'they had'} no name or number.`;
 }

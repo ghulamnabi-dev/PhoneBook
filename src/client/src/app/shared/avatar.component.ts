@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { avatarHue, initials } from './avatar';
+import { avatarTone, initials } from './avatar';
 
-/** Initials on a muted, deterministic hue. Decorative: the name is always rendered next to it. */
+/** Initials on one of five palette tones, chosen from the name. Decorative: the name is always rendered next to it. */
 @Component({
   selector: 'app-avatar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'avatar',
     'aria-hidden': 'true',
-    '[style.--h]': 'hue()',
+    '[attr.data-tone]': 'tone()',
     '[style.--size.px]': 'size()',
   },
   template: '{{ letters() }}',
@@ -18,5 +18,5 @@ export class AvatarComponent {
   readonly size = input(32);
 
   readonly letters = computed(() => initials(this.name()));
-  readonly hue = computed(() => avatarHue(this.name()));
+  readonly tone = computed(() => avatarTone(this.name()));
 }

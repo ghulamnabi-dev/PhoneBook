@@ -11,7 +11,7 @@ import { ContactsStore } from './contacts.store';
     <div class="none">
       <span class="glyph"><mat-icon>person_search</mat-icon></span>
       <h2>Select a contact</h2>
-      <p>or press <span class="kbd">N</span> to add one · <span class="kbd">/</span> to search</p>
+      <p>Press <span class="kbd">N</span> to add one, or <span class="kbd">/</span> to search.</p>
     </div>
   `,
   styles: `

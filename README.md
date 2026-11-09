@@ -14,12 +14,27 @@
   <img src="docs/screenshots/cover.png" alt="PhoneBook — contact list with a detail pane" width="100%">
 </p>
 
-<p align="center">
-  <img src="docs/screenshots/1-list.png" alt="1. Contact list and detail pane" width="49%">
-  <img src="docs/screenshots/2-search.png" alt="2. Search and group filter" width="49%">
-  <img src="docs/screenshots/3-edit.png" alt="3. Add or edit a contact" width="49%">
-  <img src="docs/screenshots/4-import.png" alt="4. vCard import and export" width="49%">
-</p>
+<details>
+<summary><strong>More screens</strong> — search by digits, editor, import errors, dark mode, mobile</summary>
+<br>
+
+| Search matches any part of a number | Group filter |
+|---|---|
+| ![Searching "+92 30" matches by digits across formatting](docs/screenshots/2-search.png) | ![The Work group selected in the rail](docs/screenshots/1-list.png) |
+
+| Contact editor (dark) | Import rejected — per-card errors, nothing imported |
+|---|---|
+| ![Edit dialog with phone rows, group chips and notes](docs/screenshots/3-edit.png) | ![Import dialog listing five validation errors](docs/screenshots/4-import.png) |
+
+| Dark mode | Sign in |
+|---|---|
+| ![Full screen in dark mode](docs/screenshots/6-dark.png) | ![Sign-in panel](docs/screenshots/0-login.png) |
+
+| Mobile — list | Mobile — detail |
+|---|---|
+| <img src="docs/screenshots/5-mobile.png" alt="Contact list on a phone" width="260"> | <img src="docs/screenshots/5b-mobile-detail.png" alt="Contact detail on a phone" width="260"> |
+
+</details>
 
 ## Repository layout
 

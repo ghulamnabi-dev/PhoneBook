@@ -45,10 +45,12 @@ html {
   --ink-2: #475467;
   --ink-3: #8790a0;
 
-  // Avatars: deterministic hue (set per element as --h), muted lightness
-  --avatar-s: 52%;
-  --avatar-bg-l: 92%;
-  --avatar-ink-l: 32%;
+  // Avatars: five tones drawn from the indigo accent (avatar.ts avatarTone), background + ink
+  --av-0-bg: #e0e7ff; --av-0-ink: #3730a3;   // indigo
+  --av-1-bg: #ede9fe; --av-1-ink: #5b21b6;   // violet
+  --av-2-bg: #dbeafe; --av-2-ink: #1e40af;   // blue
+  --av-3-bg: #d3f1ee; --av-3-ink: #115e59;   // teal
+  --av-4-bg: #e2e8f0; --av-4-ink: #334155;   // slate
 
   --radius-s: 6px;
   --radius-m: 10px;
@@ -73,9 +75,11 @@ html {
     --ink: #e7e9ee;
     --ink-2: #aeb5c2;
     --ink-3: #7b8494;
-    --avatar-s: 30%;
-    --avatar-bg-l: 24%;
-    --avatar-ink-l: 82%;
+    --av-0-bg: #272a52; --av-0-ink: #c7d2fe;
+    --av-1-bg: #2f2550; --av-1-ink: #ddd6fe;
+    --av-2-bg: #1c2b4a; --av-2-ink: #bfdbfe;
+    --av-3-bg: #15332f; --av-3-ink: #99e6da;
+    --av-4-bg: #262b35; --av-4-ink: #d0d5dd;
   }
 }
 
@@ -137,8 +141,12 @@ a:hover { text-decoration: underline; }
 .avatar {
   --size: 32px;
   display: inline-grid; place-items: center; flex: none; width: var(--size); height: var(--size); border-radius: 50%;
-  background: hsl(var(--h, 230) var(--avatar-s) var(--avatar-bg-l)); color: hsl(var(--h, 230) 45% var(--avatar-ink-l));
+  background: var(--av-0-bg); color: var(--av-0-ink);
   font-size: calc(var(--size) * .38); font-weight: 600; letter-spacing: .01em; user-select: none;
+  &[data-tone="1"] { background: var(--av-1-bg); color: var(--av-1-ink); }
+  &[data-tone="2"] { background: var(--av-2-bg); color: var(--av-2-ink); }
+  &[data-tone="3"] { background: var(--av-3-bg); color: var(--av-3-ink); }
+  &[data-tone="4"] { background: var(--av-4-bg); color: var(--av-4-ink); }
 }
 .tag {
   display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11.5px; font-weight: 500;

@@ -30,7 +30,8 @@
     </div>
 
     @if (contact(); as c) {
-      <dl class="fields">
+      <div class="layout">
+      <dl class="fields main">
         <div class="field">
           <dt>{{ c.phones.length === 1 ? 'Phone' : 'Phones' }}</dt>
           <dd>
@@ -56,6 +57,16 @@
           </div>
         }
 
+        @if (c.notes) {
+          <div class="field">
+            <dt>Notes</dt>
+            <dd class="notes">{{ c.notes }}</dd>
+          </div>
+        }
+      </dl>
+
+      <aside class="side" aria-label="Groups and record">
+      <dl class="fields">
         <div class="field">
           <dt>Groups</dt>
           <dd>
@@ -69,19 +80,18 @@
           </dd>
         </div>
 
-        @if (c.notes) {
-          <div class="field">
-            <dt>Notes</dt>
-            <dd class="notes">{{ c.notes }}</dd>
-          </div>
-        }
+        <div class="field">
+          <dt>Record</dt>
+          <dd class="record">
+            <p>Added on <time [attr.datetime]="c.createdAt">{{ c.createdAt | date: 'd MMMM y' }}</time>.</p>
+            @if (c.updatedAt !== c.createdAt) {
+              <p>Last changed <time [attr.datetime]="c.updatedAt" [title]="c.updatedAt | date: 'd MMMM y, HH:mm'">{{ c.updatedAt | relativeTime }}</time>.</p>
+            }
+          </dd>
+        </div>
       </dl>
-
-      <footer class="foot">
-        <span [title]="c.updatedAt">Updated {{ c.updatedAt | relativeTime }}</span>
-        <span aria-hidden="true">·</span>
-        <span [title]="c.createdAt">Added {{ c.createdAt | date: 'd MMM y' }}</span>
-      </footer>
+      </aside>
+      </div>
     } @else {
       <div class="skeleton" aria-hidden="true"><span></span><span></span><span></span></div>
     }

@@ -48,7 +48,7 @@ import { ContactSection } from './sections';
         @if (loadingMore()) {
           <mat-spinner diameter="18" />
         } @else {
-          <button mat-stroked-button (click)="loadMore.emit()">Load more <span class="muted num">· {{ loaded() }} of {{ total() }}</span></button>
+          <button mat-stroked-button (click)="loadMore.emit()">Load more <span class="muted num">({{ loaded() }} of {{ total() }} shown)</span></button>
         }
       </div>
     } @else if (loaded() > 12) {

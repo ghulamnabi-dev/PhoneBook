@@ -1,4 +1,4 @@
-import { avatarHue, initials } from './avatar';
+import { AVATAR_TONES, avatarTone, initials } from './avatar';
 
 describe('initials', () => {
   it('uses the first and last word', () => {
@@ -19,16 +19,21 @@ describe('initials', () => {
   });
 });
 
-describe('avatarHue', () => {
-  it('is deterministic, case-insensitive and in range', () => {
-    const hue = avatarHue('Ayesha Khan');
-    expect(avatarHue('ayesha khan ')).toBe(hue);
-    expect(hue).toBeGreaterThanOrEqual(0);
-    expect(hue).toBeLessThan(360);
+describe('avatarTone', () => {
+  it('is deterministic, case-insensitive and one of the palette tones', () => {
+    const tone = avatarTone('Ayesha Khan');
+    expect(avatarTone('ayesha khan ')).toBe(tone);
+    expect(Number.isInteger(tone)).toBeTrue();
+    expect(tone).toBeGreaterThanOrEqual(0);
+    expect(tone).toBeLessThan(AVATAR_TONES);
   });
 
-  it('spreads different names across the wheel', () => {
-    const hues = new Set(['Ayesha Khan', 'Bilal Khan', 'Fatima Malik', 'Usman Tariq', 'Hira Siddiqui', 'Ahmed Raza'].map(avatarHue));
-    expect(hues.size).toBeGreaterThan(4);
+  it('spreads a list of names over the palette', () => {
+    const tones = new Set(['Ayesha Khan', 'Bilal Khan', 'Fatima Malik', 'Usman Tariq', 'Hira Siddiqui', 'Ahmed Raza', 'Sana Javed', 'Omar Farooq'].map(avatarTone));
+    expect(tones.size).toBeGreaterThanOrEqual(3);
+  });
+
+  it('gives an empty name a tone too', () => {
+    expect(avatarTone('')).toBe(avatarTone(null));
   });
 });

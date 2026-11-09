@@ -38,7 +38,7 @@ describe('import error mapping', () => {
 
   it('summarises a successful import', () => {
     expect(importSummary(12, 0)).toBe('12 contacts imported');
-    expect(importSummary(1, 2)).toBe('1 contact imported · 2 skipped (no name or number)');
-    expect(importSummary(0, 3)).toBe('No contacts imported · 3 skipped (no name or number)');
+    expect(importSummary(1, 2)).toBe('1 contact imported; 2 skipped because they had no name or number.');
+    expect(importSummary(0, 1)).toBe('No contacts imported; 1 skipped because it had no name or number.');
   });
 });

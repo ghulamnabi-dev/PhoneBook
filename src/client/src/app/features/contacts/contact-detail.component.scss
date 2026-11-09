@@ -1,4 +1,4 @@
-:host { display: block; min-height: 100%; }
+:host { display: block; min-height: 100%; container-type: inline-size; }
 
 .bar {
   position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 8px; height: 56px; padding: 0 20px;
@@ -12,6 +12,17 @@
 }
 
 .detail { max-width: 680px; padding: 32px 40px 40px; @media (max-width: 760px) { padding: 24px 20px 32px; } }
+
+// Wide detail column (1440 with the list open): details on the left, groups and the record beside them,
+// instead of a 680px column with an empty strip on its right.
+.layout { display: block; }
+.side .fields { border-top: 0; }
+@container (min-width: 820px) {
+  .detail { max-width: 1040px; }
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 280px); gap: 0 48px; align-items: start; }
+  .side .fields { border-top: 1px solid var(--line); }
+  .side .field { grid-template-columns: 1fr; gap: 6px; dt { padding-top: 0; } }
+}
 
 .hero {
   display: flex; align-items: center; gap: 20px; padding-bottom: 24px;
@@ -48,7 +59,10 @@ li:hover .copy, .line:hover .copy, .copy:focus-visible { opacity: 1; }
 .notes { white-space: pre-wrap; color: var(--ink); line-height: 1.6; padding-top: 4px; }
 .muted { display: inline-block; padding-top: 4px; }
 
-.foot { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 16px; font-size: 12px; color: var(--ink-3); }
+.record { color: var(--ink-2); font-size: 13px; line-height: 1.55; padding-top: 4px;
+  p { margin: 0; }
+  time { color: var(--ink); }
+}
 
 .skeleton { display: grid; gap: 14px; padding-top: 18px; border-top: 1px solid var(--line);
   span { height: 12px; border-radius: 4px; background: var(--surface-2); &:nth-child(1) { width: 60%; } &:nth-child(2) { width: 45%; } &:nth-child(3) { width: 30%; } } }

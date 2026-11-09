@@ -12,16 +12,20 @@ function firstGlyph(word: string): string {
   return match ? match[0] : '';
 }
 
+/** Number of avatar tones (styles.scss `.avatar[data-tone]`): indigo, violet, blue, teal, slate. */
+export const AVATAR_TONES = 5;
+
 /**
- * Stable hue (0–359) for a name, so a person keeps their colour across sessions and devices.
- * FNV-1a over the case-folded name; cheap and well-distributed for short strings.
+ * Stable tone (0 to AVATAR_TONES - 1) for a name, so a person keeps their colour across sessions
+ * and devices. The tones are a small set drawn from the indigo accent rather than the whole colour
+ * wheel, so a list of contacts reads as one palette. FNV-1a over the case-folded name.
  */
-export function avatarHue(name: string | null | undefined): number {
+export function avatarTone(name: string | null | undefined): number {
   const key = (name ?? '').trim().toLocaleLowerCase();
   let hash = 0x811c9dc5;
   for (let i = 0; i < key.length; i++) {
     hash ^= key.charCodeAt(i);
     hash = Math.imul(hash, 0x01000193);
   }
-  return (hash >>> 0) % 360;
+  return (hash >>> 0) % AVATAR_TONES;
 }
