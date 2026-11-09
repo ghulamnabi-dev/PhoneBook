@@ -1,6 +1,6 @@
 # PhoneBook
 
-[![CI](https://github.com/gn-4200/PhoneBook/actions/workflows/ci.yml/badge.svg)](https://github.com/gn-4200/PhoneBook/actions/workflows/ci.yml)
+[![CI](https://github.com/ghulamnabi-dev/PhoneBook/actions/workflows/ci.yml/badge.svg)](https://github.com/ghulamnabi-dev/PhoneBook/actions/workflows/ci.yml)
 ![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet&logoColor=white)
 ![Angular 19](https://img.shields.io/badge/Angular-19-DD0031?logo=angular&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-default-003B57?logo=sqlite&logoColor=white)
